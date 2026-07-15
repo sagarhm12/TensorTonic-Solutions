@@ -13,9 +13,9 @@ def entropy_node(y):
     
     # Convert absolute counts to class probabilities
     probabilities = counts / np.sum(counts)
-    
+    print(probabilities)
     # Compute Shannon Entropy with a tiny epsilon value for numerical stability
     epsilon = 1e-15
-    entropy = -np.sum(probabilities * np.log2(probabilities + epsilon))
+    entropy = -np.sum(probabilities * np.log2(probabilities))
     
     return entropy
