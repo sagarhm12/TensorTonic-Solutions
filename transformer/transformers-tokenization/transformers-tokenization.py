@@ -10,20 +10,14 @@ class SimpleTokenizer:
         self.eos_token = "<EOS>"
 
     def build_vocab(self, texts: list[str]) -> None:
-        """
-        Builds the vocabulary in place.
-        """
 
-        # Convert all text to lowercase
         text_lower = [text.lower() for text in texts]
 
-        # Get unique words
         vocab_set = set()
 
         for text in text_lower:
             vocab_set.update(text.split())
 
-        # Special tokens
         special_tokens = [
             self.pad_token,
             self.unk_token,
@@ -31,33 +25,25 @@ class SimpleTokenizer:
             self.eos_token
         ]
 
-        # Create word -> ID mapping
         self.word_to_id = {
             token: idx
             for idx, token in enumerate(special_tokens)
         }
 
-        # Add normal vocabulary
         for idx, word in enumerate(
             sorted(vocab_set),
             start=len(special_tokens)
         ):
             self.word_to_id[word] = idx
 
-        # Create ID -> word mapping
         self.id_to_word = {
             idx: word
             for word, idx in self.word_to_id.items()
         }
 
-        # Vocabulary size
         self.vocab_size = len(self.word_to_id)
 
     def encode(self, text: str) -> list[int]:
-        """
-        Returns token IDs for the input text.
-        """
-
         text = text.lower()
         words = text.split()
 
@@ -74,9 +60,6 @@ class SimpleTokenizer:
         return encoded
 
     def decode(self, ids: list[int]) -> str:
-        """
-        Returns the decoded, space-separated text.
-        """
 
         decoded = []
 
